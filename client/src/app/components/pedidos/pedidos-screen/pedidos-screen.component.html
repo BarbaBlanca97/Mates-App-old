@@ -1,0 +1,124 @@
+<div id="screen-base-div">
+  <button mat-raised-button class="flex-item" color="primary" (click)="nuevoPedido()" >NUEVO</button>
+
+  <div id="filter-table-div">
+    <mat-form-field id="filter">
+      <input
+        matInput
+        (keyup)="applyFilter($event.target.value)"
+        placeholder="Filtrar"
+      />
+      <span matSuffix><mat-icon color="primary">search</mat-icon></span>
+    </mat-form-field>
+
+    <div *ngIf="false" id="viewSeleccion">
+      <p class="mat-subheading-1">Ver:</p>
+      <mat-checkbox color="primary" [value]="verEntregados">Entregados</mat-checkbox>
+      <mat-checkbox color="primary" [value]="verNoEntregados">Sin Entregar</mat-checkbox>
+    </div>
+
+    <mat-card class="mat-elevation-z2">
+      <table mat-table [dataSource]="prestamosDataSource">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let prestamo">{{ prestamo.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cliente">
+          <th mat-header-cell *matHeaderCellDef>Cliente</th>
+          <td mat-cell *matCellDef="let prestamo">
+            {{ prestamo.cliente.name }} {{ prestamo.cliente.lastName }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mates">
+          <th mat-header-cell *matHeaderCellDef>M</th>
+          <td mat-cell *matCellDef="let prestamo">{{ prestamo.equipo.mates }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="bombillas">
+          <th mat-header-cell *matHeaderCellDef>B</th>
+          <td mat-cell *matCellDef="let prestamo">{{ prestamo.equipo.bombillas }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="termos">
+          <th mat-header-cell *matHeaderCellDef>T</th>
+          <td mat-cell *matCellDef="let prestamo">{{ prestamo.equipo.termos }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="yerba">
+          <th mat-header-cell *matHeaderCellDef>Y</th>
+          <td mat-cell *matCellDef="let prestamo">
+            {{ prestamo.equipo.yerba | boolToSN }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaPedido">
+          <th mat-header-cell *matHeaderCellDef>Otorgado</th>
+          <td mat-cell *matCellDef="let prestamo">
+            {{ prestamo.fechaPedido }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="fechaEntregado">
+          <th mat-header-cell *matHeaderCellDef>Devuelto</th>
+          <td mat-cell *matCellDef="let prestamo">
+            {{ prestamo.fechaEntregado }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="puestoPedido">
+          <th mat-header-cell *matHeaderCellDef>Puesto</th>
+          <td mat-cell *matCellDef="let prestamo">
+            {{ prestamo.puestoPedido.nombre }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="controls">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let prestamo">
+            <div *ngIf="prestamo.fechaEntregado == '' || prestamo.fechaEntregado == null" class="show-on-hover">
+              <button mat-button color="primary" style="margin-right: 10px;">
+                RECIBIR
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="[
+            'id',
+            'cliente',
+            'mates',
+            'bombillas',
+            'termos',
+            'yerba',
+            'fechaPedido',
+            'fechaEntregado',
+            'puestoPedido',
+            'controls'
+          ]"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="
+            let row;
+            columns: [
+              'id',
+              'cliente',
+              'mates',
+              'bombillas',
+              'termos',
+              'yerba',
+              'fechaPedido',
+              'fechaEntregado',
+              'puestoPedido',
+              'controls'
+            ]
+          "
+        ></tr>
+      </table>
+    </mat-card>
+  </div>
+</div>

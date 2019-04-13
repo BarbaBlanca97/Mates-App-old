@@ -1,0 +1,10 @@
+.step-container {
+  height: 200px;
+  width: 500px;
+
+  margin: 16px;
+}
+
+mat-list-item {
+  height: 32px !important;
+}

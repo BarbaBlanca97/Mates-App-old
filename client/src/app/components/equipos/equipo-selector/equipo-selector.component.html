@@ -1,0 +1,17 @@
+<div id="main-container">
+  <form [formGroup]="form">
+    <mat-form-field>
+      <input matInput placeholder="Mates" type="number" formControlName="mates">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Bombillas" type="number" formControlName="bombillas">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Termos" type="number" formControlName="termos">
+    </mat-form-field>
+
+    <mat-checkbox id="yerba" formControlName="yerba" color="primary" labelPosition="before">Yerba</mat-checkbox>
+  </form>
+</div>

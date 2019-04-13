@@ -1,0 +1,71 @@
+#screen-base-div {
+  margin: 0px 0px 0px 0px;
+  max-height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+table {
+  width: 100% !important;
+
+  margin: 0px 0px 0px 0px;
+
+  overflow: scroll;
+}
+
+th, td {
+  padding: 0px 8px 0px 16px !important;
+  word-wrap: break-word !important;
+}
+
+.mat-column-controls {
+  padding: 0 16px 0 16px !important;
+}
+
+tr:hover .show-on-hover {
+  visibility: visible;
+}
+
+.show-on-hover {
+  visibility: hidden;
+  display: block;
+}
+
+mat-card {
+  overflow-y: scroll;
+  overflow-x: auto;
+
+  flex: 2;
+}
+
+#filter {
+  display: block;
+  margin-bottom: 0px;
+}
+
+#filter-table-div {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 80%;
+  flex: 2;
+
+  padding: 16px 16px 16px 16px;
+  overflow: hidden;
+}
+
+#viewSeleccion {
+  margin: 0px auto 16px auto;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+#viewSeleccion * {
+  margin: 0px 16px 0px 16px;
+}

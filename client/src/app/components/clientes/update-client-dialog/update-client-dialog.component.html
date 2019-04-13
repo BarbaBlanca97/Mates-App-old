@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{data.createNew ? 'Nuevo Cliente' : 'Actualizar Cliente'}}</h2>
+<form [formGroup]="clientForm" >
+  <div class="form-body">
+    <mat-form-field>
+      <input matInput placeholder="DNI" type="number" formControlName="id" >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Nombre" type="text" formControlName="name" >
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Apellido" type="text" formControlName="lastName">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Facultad" formControlName="facultad">
+        <mat-option *ngFor="let facultad of facultades" [value]="facultad">{{facultad}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="close(true)" >CONFIRMAR</button>
+  <button mat-button (click)="close(false)" >CANCELAR</button>
+</mat-dialog-actions>

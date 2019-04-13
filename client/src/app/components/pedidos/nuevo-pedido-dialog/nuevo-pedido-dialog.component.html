@@ -1,0 +1,41 @@
+<mat-dialog-content>
+  <mat-horizontal-stepper
+  [linear]="true"
+>
+  <mat-step label="Seleccionar Cliente">
+    <div class="step-container" >
+      <app-mini-client-selector (clientSelected)="onClientChange($event)" ></app-mini-client-selector>
+    </div>
+    <div>
+        <button mat-button matStepperNext>Continuar</button>
+      </div>
+  </mat-step>
+
+  <mat-step label="Confeccionar Prestamo" >
+    <div class="step-container" >
+      <app-equipo-selector (equipoSelected)="onEquipoChange($event)" ></app-equipo-selector>
+    </div>
+    <div>
+      <button mat-button matStepperNext>Continuar</button>
+      <button mat-button matStepperPrevious>Atras</button>
+    </div>
+  </mat-step>
+
+  <mat-step label="Finalizar">
+    <div *ngIf="prestamo.cliente != null && prestamo.equipo != null" class="step-container" >
+    <h4> {{prestamo.cliente.name}}, {{prestamo.cliente.lastName}} lleva: </h4>
+    <mat-list>
+      <mat-list-item>Mates: {{prestamo.equipo.mates}}</mat-list-item>
+      <mat-list-item>Bombillas: {{prestamo.equipo.bombillas}}</mat-list-item>
+      <mat-list-item>Termos: {{prestamo.equipo.termos}}</mat-list-item>
+      <mat-list-item>Yerba: {{prestamo.equipo.yerba | boolToSN}}</mat-list-item>
+    </mat-list>
+  </div>
+    <div>
+      <button mat-button color="primary" (click)="close(true)">Confirmar</button>
+      <button mat-button matStepperPrevious >Atras</button>
+      <button mat-button (click)="close(false)" >Cancelar</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+</mat-dialog-content>

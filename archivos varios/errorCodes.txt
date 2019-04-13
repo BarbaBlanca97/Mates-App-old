@@ -1,0 +1,8 @@
+# No dni param in request url
+errno:7001
+# Cliente no actualizado, posiblemente un error en los datos de entrada
+errno:7002
+# Problema actualizado las cantidades de equipos en los puestos
+errno:7003
+# Problema desconocido ralizando el inventario (chequear datos de entrada)
+errno:7004

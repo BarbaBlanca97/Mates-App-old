@@ -1,0 +1,43 @@
+<div id="app-screen">
+  <div class="mat-elevation-z2">
+    <mat-toolbar color="primary">Mates App</mat-toolbar>
+    <nav mat-tab-nav-bar mat-stretch-tabs [backgroundColor]="'primary'">
+      <a
+        mat-tab-link
+        [routerLink]="['/pedidos']"
+        (click)="activeRouterLink = '/pedidos'"
+        [active]="activeRouterLink == '/pedidos'"
+      >
+        PEDIDOS
+      </a>
+
+      <a
+        mat-tab-link
+        [routerLink]="['/clientes']"
+        (click)="activeRouterLink = '/clientes'"
+        [active]="activeRouterLink == '/clientes'"
+      >
+        CLIENTES
+      </a>
+
+      <a
+        mat-tab-link
+        [routerLink]="['/equipos']"
+        (click)="activeRouterLink = '/equipos'"
+        [active]="activeRouterLink == '/equipos'"
+      >
+        EQUIPOS
+      </a>
+
+      <a
+        mat-tab-link
+        [routerLink]="['/configuracion']"
+        (click)="activeRouterLink = '/configuracion'"
+        [active]="activeRouterLink == '/configuracion'"
+      >
+        CONFIGURACION
+      </a>
+    </nav>
+  </div>
+  <div id="router-space"><router-outlet></router-outlet></div>
+</div>

@@ -1,0 +1,46 @@
+<div id="base-screen">
+  <mat-card>
+    <mat-card-title> Disponibles </mat-card-title>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-select #postSelector placeholder="Puesto" [value]="puestoActual.id" (valueChange)="selectionMade(postSelector.value)" >
+          <mat-option *ngFor="let puesto of puestos" [value]="puesto.id" > {{puesto.nombre}} </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <table>
+        <tr>
+          <td class="mat-subheading-1">Mates</td>
+          <td>{{puestoActual.inventario.equipo.mates}}</td>
+        </tr>
+        <tr>
+          <td class="mat-subheading-1">Bombillas</td>
+          <td>{{puestoActual.inventario.equipo.bombillas}}</td>
+        </tr>
+        <tr>
+          <td class="mat-subheading-1">Termos</td>
+          <td>{{puestoActual.inventario.equipo.termos}}</td>
+        </tr>
+        <tr>
+          <td class="mat-subheading-1">Yerba</td>
+          <td>{{puestoActual.inventario.equipo.yerba | boolToSN}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title> Inventario </mat-card-title>
+    <mat-card-content
+      style="display: flex; flex-direction: row; align-items: baseline; justify-items: center;"
+    >
+      <p class="mat-subheading-1" style="margin-right: 16px;">
+        Ultimo realizado:
+      </p>
+      <p>10/12/1997</p>
+      <button mat-button color="primary" style="margin-left: auto;" (click)="openInventoryDialog()">
+        REALIZAR INVENTARIO
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

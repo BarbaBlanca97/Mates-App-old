@@ -1,0 +1,6 @@
+fky_facultades
+la facultad indicada no existe
+fky_postGiven
+el puesto indicado no existe
+fky_postRecived
+el puesto indicado no existe

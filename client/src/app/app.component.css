@@ -1,0 +1,14 @@
+#app-screen {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
+  max-height: 100%;
+  overflow: hidden;
+}
+
+#router-space {
+  flex: 2;
+  overflow: hidden;
+  padding: 16px 0px 0px 0px;
+}

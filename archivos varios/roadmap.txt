@@ -1,0 +1,48 @@
+ETAPA 1:
+Que vamos a hacer?
+    Sentar las bases de la aplicacion para luego poder armar el resto y tomar desiciones mas informadas de como seguir
+.
+#PANTALLAS 
+Estas pantallas componen la interfaz basica de la aplicacion
+
+Empezando por aca se pueden visualizar errores de concepto claves, o definir detalles tecnicos antes de comenzar a programar toda la app
+
+Pantallas:
+- AppBar
+    - Equipos
+    - Clientes <--en desarrollo
+    - Pedidos <-- en desarrollo
+    - Configuracion <--ni empezada
+.
+#fin PANTALLAS
+
+#SERVICIOS
+Proveeran datos a sus respectivas pantallas, a travez de un observable
+
+/*Cada servicio contendra un array de datos de prueba en memoria, luego se hara la integracion http, tener esto en cuenta para evitar conflictos a la hora de tener que hacer el upgrade*/
+^-Ya esta hecha la implementacion por http
+
+Servicios:
+    - EquiposService
+    - ClientesService
+    - PedidosService
+    - ¿Quizas agregar un 4to que sea "Miscelaneos" con info de las facultades?
+
+    ClientesService:
+        Por cada metodo de entrada (createNew, updateExistent, deleteExistent) se devuelve un observable que solo pasa el resultado de la operacion, para actualizar los datos se usaria un stream que se actualize con cada cambio y mande a todos los subscriptores, y a volutantad de un subsriptor individual (solo para él)
+.
+#fin SERVICIOS
+
+@TODO:
+- Ver validacion
+- Agregar filtros multiples a la tabla:
+    Quizas la cantidad de datos de la aplicacion crezca bastante, hay que analizar si hacer el filtrado en el servidor o del lado del cliente.
+- Ver la mejor manera de organizar el servidor para hacer el desarrollo en un solo lugar:
+    Onda Angular tiene que compilarse para ser prod-ready. Debería tener todo en un solo lugar?
+    Si no es así. Como paso de manera cómoda lo que ya está listo al "proyecto posta"?
+- Heroku: 
+    Me dejara subir el server así sin más? Averiguar sobre ese tema
+- Datos:
+    Que base de datos puedo meter a Heroku? Puedo hacerlo si quiera? Alternativas en caso afirmativo (huele a mongo)
+@DONE:
+- Ver el temita del array en memoria de ClientesService, hay que hacer mas eficientes las operaciones

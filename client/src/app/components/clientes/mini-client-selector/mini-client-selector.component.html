@@ -1,0 +1,44 @@
+<div id="mainContainer">
+  <mat-form-field>
+    <input matInput type="text" placeholder="Filtrar" (keyup)="applyFilter($event.target.value)" />
+  </mat-form-field>
+
+  <div id="tableContainer">
+    <table mat-table [dataSource]="clientsDataSource">
+      <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)"
+            >
+
+            </mat-checkbox>
+          </td>
+      </ng-container>
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>DNI</th>
+        <td mat-cell *matCellDef="let cliente">{{ cliente.id }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let cliente">{{ cliente.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef>Apellido</th>
+        <td mat-cell *matCellDef="let cliente">{{ cliente.lastName }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['select', 'id', 'name', 'lastName']"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['select', 'id', 'name', 'lastName']"
+        (click)="selection.toggle(row)"
+      ></tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div id="screen-base-div">
+  <button mat-raised-button class="flex-item" color="primary" (click)="openNewClientDialog()">NUEVO</button>
+
+  <div id="filter-table-div" >
+  <mat-form-field id="filter">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtrar" >
+    <span matSuffix><mat-icon color="primary">search</mat-icon></span>
+  </mat-form-field>
+
+  <mat-card class="mat-elevation-z2">
+    <table mat-table [dataSource]="clientsDataSource" >
+      <ng-container matColumnDef="id" >
+        <th mat-header-cell *matHeaderCellDef> DNI </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombre" >
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="apellido">
+        <th mat-header-cell *matHeaderCellDef> Apellido </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.lastName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="facultad">
+        <th mat-header-cell *matHeaderCellDef> Facultad </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.facultad}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fechaRegistro">
+        <th mat-header-cell *matHeaderCellDef> Fecha registro </th>
+        <td mat-cell *matCellDef="let cliente"> {{cliente.fechaRegistro}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="controls">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let cliente">
+          <div class="show-on-hover">
+            <button mat-icon-button class="small-button" style="margin-right: 10px;" (click)="openUpdateClientDialog(cliente)"><mat-icon>edit</mat-icon></button>
+            <button mat-icon-button color="warn" (click)="openConfirmDialog(cliente.id)" ><mat-icon>delete</mat-icon></button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['id', 'nombre', 'apellido', 'facultad', 'fechaRegistro', 'controls']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['id', 'nombre', 'apellido', 'facultad', 'fechaRegistro', 'controls'];"></tr>
+    </table>
+  </mat-card>
+</div>
+</div>
