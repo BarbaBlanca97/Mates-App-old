@@ -42,11 +42,14 @@ const query_makeInventory = '\
 ;';
 //#endregion
 
+/**
+ * Devuelve todos los puestos
+ */
 module.exports.getAllPosts = function(req, res, next) {
     try {
         const rows = db.prepare(query_getAllPosts).all();
         /** los items de rows ya tienen la forma correcta, el trabajo acá es bastante simple */
-        res.json(rows).send();
+        res.json(rows);
     }
     catch (error) {
         next(error);
@@ -54,8 +57,8 @@ module.exports.getAllPosts = function(req, res, next) {
 };
 
 /**
- * Funcion auxiliar para cambiar las cantidades de los equipos
- * No se hace manejo de errores porque los encargados de manejarlos son los lugares de donde se los llama */
+ * Funcion auxiliar para cambiar las cantidades de los equipos.
+ * Debe ir en un bloque try-catch */
 module.exports.updateCuantities = function(postId, mates, bombillas, termos) {
     const info = db.prepare(query_updateCuantities).run({
         id: postId,
@@ -87,19 +90,9 @@ module.exports.makeInventory = function(req, res, next) {
 
         const row = db.prepare(query_getPostById).get(req.body.id);
 
-        res.json(row).send();
+        res.json(row);
     }
     catch (error) {
         next(error);
     }
 }
-
-/* NO NENEEE, la onda es hacer el ruteo en el router, no en el controlador, implementar ahí...
-module.exports.putHandler = function(req, res, next) {
-   if (!req.body.adminCredentials) {
-       this.makeInventory(req, res, next);
-   } else {
-       res.write('Not implemented yet!').send();
-   }
-}
-*/

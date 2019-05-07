@@ -48,7 +48,6 @@ const appRoutes = [
   { path: 'clientes', component: ClientesScreenComponent },
   { path: 'equipos', component: EquiposScreenComponent },
   { path: 'configuracion', component: ConfiguracionScreenComponent },
-  { path: 'pedidos', component: PedidosScreenComponent },
   { path: '', redirectTo: '/clientes', pathMatch: 'full' },
   { path: '**', redirectTo: '/clientes' }
 ];

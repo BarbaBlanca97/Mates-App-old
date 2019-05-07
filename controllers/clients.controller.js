@@ -78,10 +78,8 @@ const query_deleteClient = '\
 //#endregion
 
 module.exports.getAll = function(req, res, next) {
-    const query = db.prepare(query_selectAll);
-
     try {
-        const result = query.all();
+        const result = db.prepare(query_selectAll).all();
         const clients = result.map((row) => {
             return {
                 dni: row.dni,
@@ -96,11 +94,11 @@ module.exports.getAll = function(req, res, next) {
             };
         });
 
-        res.json(clients).send();
+        res.json(clients);
     }
     catch(error) {
         next(error);
-    }  
+    }
 }
 
 module.exports.createNew = function(req, res, next) {
@@ -121,7 +119,7 @@ module.exports.createNew = function(req, res, next) {
             Se busca el error de dni repetido,
             si es el caso, no es un error, solo hay que dar de alta el cliente */
             if(error.code = sqlite3ErrorCodes.SQLITE_CONSTRAINT_PRIMARYKEY)
-                try { db.prepare(query_activateClient).run(clientToInsert.dni); } catch (error) { throw error }
+                db.prepare(query_activateClient).run(clientToInsert.dni);
             else
                 throw error;
         }
@@ -140,7 +138,7 @@ module.exports.createNew = function(req, res, next) {
                 dateRegistered: row.dateRegistered,
                 active: row.active
             }
-        ).send();
+        );
     }
     catch (error) {
         next(error);
@@ -158,10 +156,10 @@ module.exports.update = function(req, res, next) {
         });
         
         if(info.changes) {
-            /** Se realizaron cambios */
+            /* Se realizaron cambios */
             const row = db.prepare(query_selectByDni).get(req.body.dni);
 
-            /** Mapeo del objeto row a un cliente */
+            /* Mapeo del objeto row a un cliente */
             res.json(
                 {
                     dni: row.dni,
@@ -174,11 +172,12 @@ module.exports.update = function(req, res, next) {
                     dateRegistered: row.dateRegistered,
                     active: row.active
                 }
-            ).send();
+            );
         } else {
-            /**
+            /*
              * El cliente no fue actualizado por alguna razón,
              * Ver cada cuanto ocurre y si va a ocurrir siquiera
+             * (Puede pasar que haya un error con la base de datos así que lo dejamos nomás)
              */
             error = new Error(); error.code = 7002;
             throw error;
@@ -194,9 +193,9 @@ module.exports.delete = function(req, res, next) {
         const info = db.prepare(query_deleteClient).run(req.query.dni);
         
         if(info.changes){
-            res.json({ dni: req.query.dni }).send();
+            res.json({ dni: req.query.dni });
         } else {
-            throw new Error('No se borro nungun cliente');
+            throw new Error('No se borro ningun cliente');
         }
     }
     catch (error) {

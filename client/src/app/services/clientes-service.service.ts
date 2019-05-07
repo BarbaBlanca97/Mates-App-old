@@ -9,7 +9,7 @@ export enum ClientesServiceResults {
   invalidData
 }
 
-const clientsUrl: string = 'clientes';
+const clientsUrl: string = 'api/clientes';
 
 interface RawClient {
   dni: number,
