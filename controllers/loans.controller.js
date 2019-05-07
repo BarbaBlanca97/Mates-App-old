@@ -91,6 +91,19 @@ const query_createNew = '\
             null            \
         )                   \
 ;';
+
+const query_reciveLoan = '\
+    UPDATE                                  \
+        loans                               \
+    SET                                     \
+        matesBack = @matesBack,             \
+        bombillasBack = @bombillasBack,     \
+        termosBack = @termosBack,           \
+        dateRecived = date(\'now\'),        \
+        postRecived = @postRecived          \
+    WHERE                                   \
+        id = @id                            \
+;';
 //#endregion
 
 /**
@@ -149,6 +162,9 @@ module.exports.getAll = function(req, res, next) {
     }
 }
 
+/**
+ * Crea un nuevo prestamo
+ */
 module.exports.newLoan = function(req, res, next) {
     try {
         /* Mandando query a la base de datos y guardando la info con los cambios realizados*/
@@ -173,6 +189,34 @@ module.exports.newLoan = function(req, res, next) {
 
             res.json(loan);
         } else { throw new Error('No se agrgo el prestamo, algo salio mal'); }
+    }
+    catch (error) {
+        next(error);
+    }
+}
+/**
+ * Recibe la informacion del prestamo entregado, actualiza la base de datos y responde */
+module.exports.reciveLoan = function(req, res, next) {
+    try {
+        const info = db.prepare(query_reciveLoan).run(
+            {
+                id: req.body.id,
+                matesBack: req.body.matesBack,
+                bombillasBack: req.body.bombillasBack,
+                termosBack: req.body.termosBack,
+                postRecived: req.body.postRecived
+            }
+        );
+
+        if(info.changes) {
+            /*
+            Todo ok, se actualizo el prestamo.
+            Ahora se busca y se envia el prestamo actualizado */
+            const loan = mapRowToLoan(db.prepare(query_selectById).get(req.body.id));
+
+            res.json(loan);
+        }
+        else { throw new Error('No se recibio el prestamo, algo salio mal') }
     }
     catch (error) {
         next(error);

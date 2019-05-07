@@ -73,6 +73,9 @@ module.exports.updateCuantities = function(postId, mates, bombillas, termos) {
     }
 };
 
+/**
+ * Actualiza las cantidades de inventario de un puesto
+ */
 module.exports.makeInventory = function(req, res, next) {
     try {
         const info = db.prepare(query_makeInventory).run({
@@ -83,6 +86,8 @@ module.exports.makeInventory = function(req, res, next) {
             yerba: req.body.yerba
         });
 
+        /* 
+        info.changes contiene informacion sobre la operación */
         if(!info.changes) {
             error = new Error(); error.code = 7004;
             throw error;
