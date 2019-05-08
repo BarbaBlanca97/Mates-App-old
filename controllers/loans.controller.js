@@ -1,4 +1,5 @@
 const db = require('better-sqlite3')('./database/mates_database.db3');
+const updatePostQuantities = require('./posts.controller').updateCuantities;
 
 //#region QUERYS
 const query_selectAll = '\
@@ -141,7 +142,7 @@ const mapRowToLoan = function(row) {
             name: row.postRecivedName
         } : null,
         dateGiven: row.dateGiven,
-        dateRecived: row.dateReturned
+        dateRecived: row.dateRecived
     }
 }
 
@@ -186,6 +187,13 @@ module.exports.newLoan = function(req, res, next) {
             const loan = mapRowToLoan(
                 db.prepare(query_selectById).get(info.lastInsertRowid)
             );
+            
+            /*
+            Se actualiza el inventario del puesto emisor */
+            updatePostQuantities(loan.postGiven.id,
+                -loan.mates,
+                -loan.bombillas,
+                -loan.termos);
 
             res.json(loan);
         } else { throw new Error('No se agrgo el prestamo, algo salio mal'); }
@@ -212,7 +220,16 @@ module.exports.reciveLoan = function(req, res, next) {
             /*
             Todo ok, se actualizo el prestamo.
             Ahora se busca y se envia el prestamo actualizado */
-            const loan = mapRowToLoan(db.prepare(query_selectById).get(req.body.id));
+            const loan = mapRowToLoan(
+                db.prepare(query_selectById).get(req.body.id)
+            );
+            
+            /*
+            Se actualiza el inventario del puesto de llegada */
+            updatePostQuantities(loan.postRecived.id,
+                loan.matesBack,
+                loan.bombillasBack,
+                loan.termosBack);
 
             res.json(loan);
         }

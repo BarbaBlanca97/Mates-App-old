@@ -21,9 +21,9 @@ const query_updateCuantities = '\
     UPDATE                                  \
         posts                               \
     SET                                     \
-        mates = mates - @mates,             \
-        bombillas = bombillas - @bombillas, \
-        termos = termos - @termos           \
+        mates = mates + @mates,             \
+        bombillas = bombillas + @bombillas, \
+        termos = termos + @termos           \
     WHERE                                   \
         id = @id                            \
 ;';
