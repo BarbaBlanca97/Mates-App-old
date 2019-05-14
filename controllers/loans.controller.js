@@ -70,7 +70,7 @@ const query_selectById = '\
             loans.postRecived = posts_r.id                  \
         WHERE                                               \
             loans.id = ?                                    \
-            ;';
+;';
 
 const query_createNew = '\
     INSERT INTO             \
@@ -103,7 +103,7 @@ const query_reciveLoan = '\
         dateRecived = date(\'now\'),        \
         postRecived = @postRecived          \
     WHERE                                   \
-        id = @id                            \
+        id = @id AND dateRecived = NULL     \
 ;';
 //#endregion
 
@@ -145,7 +145,6 @@ const mapRowToLoan = function(row) {
         dateRecived: row.dateRecived
     }
 }
-
 
 /**
  * Devuelve todos los prestamos. 
